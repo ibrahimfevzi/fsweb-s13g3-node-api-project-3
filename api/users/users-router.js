@@ -17,7 +17,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", userMd.validateUserId, async (req, res, next) => {
   try {
     const { id } = req.params;
     const user = await Users.getById(id);
@@ -29,7 +29,7 @@ router.get("/:id", async (req, res, next) => {
 
 // YENİ OLUŞTURULAN USER NESNESİNİ DÖNDÜRÜN
 // istek gövdesini doğrulamak için ara yazılım gereklidir.
-router.post("/", userMd.validatePost, async (req, res, next) => {
+router.post("/", userMd.validateUser, async (req, res, next) => {
   try {
     const { name } = req.body;
     const user = await Users.insert({ name });
@@ -44,7 +44,7 @@ router.post("/", userMd.validatePost, async (req, res, next) => {
 router.put(
   "/:id",
   userMd.validateUserId,
-  userMd.validatePost,
+  userMd.validateUser,
   async (req, res, next) => {
     try {
       const { id } = req.params;
