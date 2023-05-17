@@ -1,4 +1,5 @@
-const express = require('express');
+const express = require("express");
+const userRouter = require("./users/users-router");
 
 const server = express();
 
@@ -6,7 +7,11 @@ const server = express();
 
 // global ara yazılımlar ve kullanıcı routelarının buraya bağlanması gerekir
 
-server.get('/', (req, res) => {
+server.use(express.json());
+
+server.use("/api/users", userRouter); // <--- burası önemli, users-router.js dosyasını buraya bağlıyoruz
+
+server.get("/", (req, res) => {
   res.send(`<h2>Biraz ara yazılım yazalım!</h2>`);
 });
 
