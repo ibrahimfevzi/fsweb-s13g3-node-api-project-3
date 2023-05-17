@@ -18,13 +18,7 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/:id", userMd.validateUserId, async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const user = await Users.getById(id);
-    res.status(200).json(user);
-  } catch (err) {
-    next(err);
-  }
+  res.json(req.user);
 });
 
 // YENİ OLUŞTURULAN USER NESNESİNİ DÖNDÜRÜN
@@ -61,13 +55,13 @@ router.put(
 // user id yi doğrulayan bir ara yazılım gereklidir.
 router.delete("/:id", userMd.validateUserId, async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const user = await Users.remove(id);
-    res.status(200).json(user);
+    await Users.remove(req.params.id);
+    res.status(200).json(req.user);
   } catch (err) {
     next(err);
   }
 });
+
 // USER POSTLARINI İÇEREN BİR DİZİ DÖNDÜRÜN
 // user id yi doğrulayan bir ara yazılım gereklidir.
 router.get("/:id/posts", userMd.validateUserId, async (req, res, next) => {
