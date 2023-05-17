@@ -12,6 +12,7 @@ router.get("/", async (req, res, next) => {
   try {
     const users = await Users.get();
     res.status(200).json(users);
+    console.log(userMd.logger);
   } catch (err) {
     next(err);
   }

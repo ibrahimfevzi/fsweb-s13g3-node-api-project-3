@@ -1,12 +1,11 @@
 const Users = require("../users/users-model");
 
 function logger(req, res, next) {
-  console.log(
-    `[${new Date().toISOString()}] ${req.method} to ${req.url} from ${req.get(
-      "Origin"
-    )}`
-  );
+  let timestamp = newDate().toLocaleString();
+  let url = req.originalUrl;
+  let method = req.method;
 
+  console.log(`${timestamp} -- ${method} -- ${url}`);
   next();
 }
 
